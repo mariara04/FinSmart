@@ -101,12 +101,13 @@ async function uploadReceipts(event) {
 }
 
 async function uploadSingleReceipt(file) {
-
     const formData = new FormData();
 
     formData.append("receipt", file);
 
     try {
+        loadingText.textContent =
+            "Uploading receipt. Render may take up to 60 seconds to wake up...";
 
         const response = await fetch(
             `${API_BASE}/upload`,
@@ -116,18 +117,15 @@ async function uploadSingleReceipt(file) {
             }
         );
 
-        if (!response.ok) {
-            throw new Error(
-                "Server response failed"
-            );
-        }
-
         const data = await response.json();
 
+        if (!response.ok) {
+            console.log("BACKEND ERROR:", data);
+            throw new Error(data.error || "Server response failed");
+        }
+
         if (!data.receipt) {
-            throw new Error(
-                "No receipt returned"
-            );
+            throw new Error("No receipt returned");
         }
 
         pendingReceipts.push({
@@ -136,14 +134,10 @@ async function uploadSingleReceipt(file) {
         });
 
     } catch (error) {
-
-        console.log(
-            "UPLOAD ERROR:",
-            error
-        );
+        console.log("UPLOAD ERROR:", error);
 
         alert(
-            "One receipt failed to process. Check your backend logs."
+            "Receipt upload failed. Try a smaller image or wait for Render to wake up."
         );
     }
 }
