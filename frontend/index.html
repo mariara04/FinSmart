@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinSmart | Premium Receipt Intelligence</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="noise"></div>
+<header class="site-header" id="home">
+  <nav class="nav">
+    <a class="logo" href="index.html"><div class="logo-mark"><span class="logo-ring"></span><span class="logo-dot"></span></div><span>FinSmart</span></a>
+    <ul class="nav-links"><li><a href="#features">Features</a></li><li><a href="#intelligence">Intelligence</a></li><li><a href="#howitworks">How it works</a></li><li><a href="insights.html">Dashboard</a></li></ul>
+    <button class="btn btn-small" onclick="document.getElementById('receiptUpload').click()">Upload Receipt</button>
+  </nav>
+  <section class="hero">
+    <div class="hero-copy reveal">
+      <span class="eyebrow">AI-powered receipt intelligence</span>
+      <h1>Turn everyday receipts into elegant financial clarity.</h1>
+      <p>Upload grocery, clothing, food, transport, and shopping receipts. FinSmart reads them with OCR, confirms details with you, and creates clear AI spending insights.</p>
+      <div class="hero-actions"><button class="btn" onclick="document.getElementById('receiptUpload').click()">Upload Receipts</button><button class="btn btn-glass" onclick="window.location.href='insights.html'">View Dashboard</button></div>
+      <div class="trust-row"><span>OCR extraction</span><span>Item categories</span><span>Needs vs wants</span><span>Monthly AI review</span></div>
+    </div>
+    <div class="hero-panel reveal">
+      <div class="card upload-card"><div class="upload-glow"></div><div class="upload-circle"><span>+</span></div><h2>Upload Receipts</h2><p>Upload one or multiple receipt images. You will confirm every receipt before saving.</p><div class="upload-format-row"><span>JPG</span><span>PNG</span><span>WEBP</span></div><input type="file" id="receiptUpload" accept="image/*" multiple /></div>
+      <div class="stat-card stat-one"><span>AI Score</span><strong>88</strong></div><div class="stat-card stat-two"><span>Saving Target</span><strong>£24</strong></div>
+    </div>
+  </section>
+</header>
+<main>
+  <section class="section section-block" id="features"><div class="section-heading reveal"><span class="eyebrow dark">Features</span><h2>Everything needed for receipt-based budgeting.</h2><p>Designed as a lightweight finance assistant for everyday users.</p></div><div class="feature-grid"><article class="feature-card reveal"><div class="icon">⌁</div><h3>OCR Receipt Reading</h3><p>Extracts store, date, total, and item lines from receipt images using backend OCR processing.</p></article><article class="feature-card reveal"><div class="icon">✦</div><h3>Editable Confirmation</h3><p>Every uploaded receipt appears in a clean confirmation screen so OCR mistakes can be corrected.</p></article><article class="feature-card reveal"><div class="icon">◈</div><h3>AI Item Categories</h3><p>AI categorises items into food, clothing, household, health, transport, entertainment and more.</p></article><article class="feature-card reveal"><div class="icon">◎</div><h3>Monthly Intelligence</h3><p>All saved receipts are combined into a monthly spending review with a realistic saving plan.</p></article></div></section>
+  <section class="section split-section" id="intelligence"><div class="analytics-copy reveal"><span class="eyebrow dark">Financial intelligence</span><h2>From small purchases to meaningful patterns.</h2><p>FinSmart turns receipts into category totals, needs vs wants scores, individual receipt insights, and a professional monthly review.</p><div class="steps-grid"><div><strong>01</strong><span>Read receipt</span></div><div><strong>02</strong><span>Confirm data</span></div><div><strong>03</strong><span>Analyse items</span></div><div><strong>04</strong><span>Review month</span></div></div></div><div class="charts-grid reveal"><div class="chart-card"><h3>Needs vs Wants</h3><canvas id="previewPie" width="520" height="300"></canvas></div><div class="chart-card"><h3>Spending Trend</h3><canvas id="previewLine" width="520" height="300"></canvas></div></div></section>
+  <section class="section highlight-section"><div class="highlight-content reveal"><span class="eyebrow">AI Insight Example</span><h2>“Swap one branded snack for own-brand and save around £2.40 next shop.”</h2><p>Specific saving actions are more useful than just showing numbers.</p></div></section>
+  <section class="section process-section" id="howitworks"><div class="section-heading reveal"><span class="eyebrow dark">Process</span><h2>A smooth flow from upload to insight.</h2></div><div class="process-grid"><div class="process-card reveal"><span>01</span><h3>Upload</h3><p>Select one or many receipt images.</p></div><div class="process-card reveal"><span>02</span><h3>Read</h3><p>Backend OCR extracts receipt text.</p></div><div class="process-card reveal"><span>03</span><h3>Confirm</h3><p>Edit store, date, and total before saving.</p></div><div class="process-card reveal"><span>04</span><h3>Analyse</h3><p>View individual and monthly AI feedback.</p></div></div></section>
+</main>
+<footer class="footer"><div><a class="logo footer-logo" href="index.html"><div class="logo-mark small"><span class="logo-ring"></span><span class="logo-dot"></span></div><span>FinSmart</span></a><p>Receipt intelligence for smarter spending awareness.</p></div><button class="btn" onclick="document.getElementById('receiptUpload').click()">Start Uploading</button></footer>
+<div class="modal-overlay" id="loadingModal"><div class="modal-box small-modal"><div class="loader"></div><h3>Reading your receipts</h3><p id="loadingText">OCR and AI are preparing your confirmation screen.</p></div></div>
+<div class="modal-overlay" id="confirmModal"></div>
+<div class="modal-overlay" id="successModal"><div class="modal-box small-modal success-modal"><div class="success-icon">✓</div><h3>Receipts saved</h3><p id="savedReceiptInfo"></p><p id="uploadSummaryText"></p><div class="modal-actions"><button class="btn" id="viewInsightsBtn">View Dashboard</button><button class="btn btn-dark" id="addMoreBtn">Add More</button></div></div></div>
+<script src="script.js"></script>
+</body>
+</html>

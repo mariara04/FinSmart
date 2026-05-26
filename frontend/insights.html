@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinSmart | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-page">
+
+<header class="dashboard-header">
+    <nav class="nav dashboard-nav">
+        <a class="logo" href="index.html">
+            <div class="logo-mark">
+                <span class="logo-ring"></span>
+                <span class="logo-dot"></span>
+            </div>
+            <span>FinSmart</span>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Upload</a></li>
+            <li><a href="#review">AI Review</a></li>
+            <li><a href="#receipts">Receipts</a></li>
+        </ul>
+
+        <button class="btn btn-small btn-dark" onclick="confirmClearReceipts()">Clear Data</button>
+    </nav>
+
+    <section class="dashboard-hero">
+        <div>
+            <span class="eyebrow dark">Dashboard</span>
+            <h1>Your financial story, simplified.</h1>
+            <p id="summaryText">Upload receipts to build your monthly spending overview.</p>
+        </div>
+
+        <div class="score-card">
+            <div class="score-ring" id="scoreRing">
+                <div class="score-inner" id="financeScore">0</div>
+            </div>
+            <span>FinSmart Score</span>
+        </div>
+    </section>
+</header>
+
+<main class="dashboard-main">
+
+    <section class="summary-grid">
+        <article class="overview-card main-spend-card">
+            <span>This Month</span>
+            <strong id="monthlySpend">£0.00</strong>
+            <p>Total detected spending</p>
+        </article>
+
+        <article class="overview-card">
+            <span>Receipts</span>
+            <strong id="receiptCount">0</strong>
+            <p>Saved receipts</p>
+        </article>
+
+        <article class="overview-card">
+            <span>Largest</span>
+            <strong id="biggestReceipt">£0.00</strong>
+            <p>Biggest single receipt</p>
+        </article>
+
+        <article class="overview-card">
+            <span>Save</span>
+            <strong id="savingsPotential">£0.00</strong>
+            <p>Potential monthly saving</p>
+        </article>
+    </section>
+
+    <section class="focus-grid">
+        <article class="insight-card" id="aiAdvice">
+            <span class="eyebrow">AI Insight</span>
+            <h2>No receipt analysis yet</h2>
+            <p>Upload receipts to receive clear financial insights and practical saving actions.</p>
+        </article>
+
+        <article class="chart-panel">
+            <div class="card-header">
+                <div>
+                    <span class="mini-label">Needs vs Wants</span>
+                    <h3>Spending balance</h3>
+                </div>
+            </div>
+            <canvas id="pie" width="520" height="300"></canvas>
+        </article>
+    </section>
+
+    <section class="dashboard-section" id="review">
+        <div class="dashboard-section-head">
+            <span class="mini-label">Monthly AI Review</span>
+            <h2>One calm summary across all receipts.</h2>
+        </div>
+
+        <article class="monthly-review" id="monthlyAIReview">
+            <h3>No monthly review yet</h3>
+            <p>Upload receipts first to generate your monthly AI review.</p>
+        </article>
+    </section>
+
+    <section class="dashboard-section">
+        <div class="dashboard-section-head">
+            <span class="mini-label">Categories</span>
+            <h2>Where your money went.</h2>
+        </div>
+
+        <div class="category-grid" id="categoryOverview"></div>
+    </section>
+
+    <section class="dashboard-section">
+        <div class="dashboard-section-head">
+            <span class="mini-label">Trend</span>
+            <h2>Monthly movement.</h2>
+        </div>
+
+        <article class="wide-chart">
+            <canvas id="line" width="900" height="330"></canvas>
+        </article>
+    </section>
+
+    <section class="dashboard-section" id="receipts">
+        <div class="dashboard-section-head">
+            <span class="mini-label">Timeline</span>
+            <h2>Receipt history.</h2>
+        </div>
+
+        <div class="receipt-timeline" id="receiptList"></div>
+    </section>
+
+    <section class="dashboard-section">
+        <div class="dashboard-section-head">
+            <span class="mini-label">Months</span>
+            <h2>Monthly totals.</h2>
+        </div>
+
+        <div class="category-grid" id="monthlyBreakdown"></div>
+    </section>
+
+</main>
+
+<footer class="footer page-footer">
+    <div>
+        <a class="logo footer-logo" href="index.html">
+            <div class="logo-mark small">
+                <span class="logo-ring"></span>
+                <span class="logo-dot"></span>
+            </div>
+            <span>FinSmart</span>
+        </a>
+        <p>Receipt intelligence for smarter spending awareness.</p>
+    </div>
+
+    <button class="btn" onclick="window.location.href='index.html'">Upload More</button>
+</footer>
+
+<script src="insights.js"></script>
+</body>
+</html>
