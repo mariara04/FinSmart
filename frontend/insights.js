@@ -1,3 +1,4 @@
+const API_BASE = "https://finsmart-backend-4zge.onrender.com";
 function getReceipts() {
     return JSON.parse(localStorage.getItem("receipts")) || [];
 }
@@ -319,7 +320,7 @@ async function loadMonthlyAIReview() {
     `;
 
     try {
-        const response = await fetch("http://localhost:5000/monthly-insights", {
+        const response = await fetch(`${API_BASE}/monthly-insights`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ receipts })
