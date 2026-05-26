@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const fs = require("fs");
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
@@ -12,6 +13,11 @@ const {
 } = require("./aiService");
 
 const app = express();
+const uploadDir = path.join(__dirname, "uploads");
+
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+}
 
 app.use(
     cors({
@@ -27,7 +33,7 @@ app.use(
 );
 
 const upload = multer({
-    dest: path.join(__dirname, "uploads")
+    dest: uploadDir
 });
 
 app.get("/", (req, res) => {
