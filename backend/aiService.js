@@ -7,6 +7,9 @@ const ai = new GoogleGenAI({
 });
 
 async function generateInsights(receipt) {
+    if (process.env.DEMO_MODE === "true") {
+        return fallbackReceiptInsight(receipt);
+    }
 
     if (!process.env.GEMINI_API_KEY) {
         return fallbackReceiptInsight(receipt);
