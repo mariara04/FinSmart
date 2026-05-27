@@ -33,7 +33,10 @@ app.use(
 );
 
 const upload = multer({
-    dest: uploadDir
+    dest: uploadDir,
+    limits: {
+        fileSize: 12 * 1024 * 1024
+    }
 });
 
 app.get("/", (req, res) => {
@@ -71,7 +74,7 @@ app.post("/upload", upload.single("receipt"), async (req, res) => {
         console.log("SERVER ERROR:", error);
 
         return res.status(500).json({
-            error: "Processing failed"
+            error: error.message || "Processing failed"
         });
     }
 });
@@ -97,7 +100,7 @@ app.post("/monthly-insights", async (req, res) => {
         console.log("MONTHLY INSIGHTS ERROR:", error);
 
         return res.status(500).json({
-            error: "Monthly insight generation failed"
+            error: error.message || "Monthly insight generation failed"
         });
     }
 });

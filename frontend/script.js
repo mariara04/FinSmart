@@ -56,22 +56,38 @@ async function uploadReceipts(event) {
 async function uploadSingleReceipt(file) {
     const formData = new FormData();
 
-    formData.append("receipt", file);
-
     try {
+        loadingText.textContent =
+            "Preparing receipt image for upload...";
+
+        const uploadFile = await resizeImageForUpload(file);
+
+        formData.append("receipt", uploadFile, "receipt.jpg");
+
+        loadingText.textContent =
+            "Uploading and reading receipt. This may take a moment on Render...";
+
         const response = await fetch(`${API_BASE}/upload`, {
             method: "POST",
             body: formData
         });
 
-        const data = await response.json();
+        const responseText = await response.text();
+
+        let data;
+
+        try {
+            data = JSON.parse(responseText);
+        } catch {
+            throw new Error(responseText || "Server returned an invalid response");
+        }
 
         if (!response.ok) {
             throw new Error(data.error || "Server response failed");
         }
 
         if (!data.receipt) {
-            throw new Error("No receipt returned");
+            throw new Error("No receipt returned from backend");
         }
 
         pendingReceipts.push({
@@ -83,7 +99,7 @@ async function uploadSingleReceipt(file) {
         console.log("UPLOAD ERROR:", error);
 
         alert(
-            "One receipt failed to process. Please try a clearer or smaller image."
+            "One receipt failed to process. Please check Render logs or try a clearer image."
         );
     }
 }
@@ -305,6 +321,57 @@ function escapeHTML(text) {
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
+}
+
+function resizeImageForUpload(file) {
+    return new Promise((resolve, reject) => {
+        if (!file || !file.type.startsWith("image/")) {
+            resolve(file);
+            return;
+        }
+
+        const image = new Image();
+        const objectUrl = URL.createObjectURL(file);
+
+        image.onload = () => {
+            URL.revokeObjectURL(objectUrl);
+
+            const maxSide = 1400;
+            const scale = Math.min(
+                1,
+                maxSide / Math.max(image.width, image.height)
+            );
+
+            const canvas = document.createElement("canvas");
+
+            canvas.width = Math.round(image.width * scale);
+            canvas.height = Math.round(image.height * scale);
+
+            const ctx = canvas.getContext("2d");
+
+            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+            canvas.toBlob(
+                blob => {
+                    if (!blob) {
+                        resolve(file);
+                        return;
+                    }
+
+                    resolve(blob);
+                },
+                "image/jpeg",
+                0.82
+            );
+        };
+
+        image.onerror = () => {
+            URL.revokeObjectURL(objectUrl);
+            reject(new Error("Could not prepare image for upload"));
+        };
+
+        image.src = objectUrl;
+    });
 }
 
 function drawPreviewCharts() {

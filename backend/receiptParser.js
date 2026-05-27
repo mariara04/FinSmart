@@ -43,7 +43,7 @@ async function preprocessImage(filePath) {
         })
         .sharpen()
         .resize({
-            width: 2200,
+            width: 1200,
             withoutEnlargement: true
         })
         .png()
